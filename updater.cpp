@@ -1,6 +1,7 @@
 #include <iostream>
 #include <getopt.h>
 #include <string>
+#include <cstdlib>
 
 void print_help() {
   std::cout << "Usage: disupdate [options]\n"
@@ -38,7 +39,7 @@ int main(int argc, char* argv[]) {
   static struct option long_options[] = {
     {"help",    no_argument,         0, 'h'},
     {"cord",    no_argument,         0, 'c'},
-    {"package", optional,            0, 'p'},
+    {"package", optional_arguement,  0, 'p'},
     {"silent",  no_argument,         0, 's'},
     {"version", no_argument,         0, 'v'},
     {0, 0, 0, 0}
@@ -55,7 +56,7 @@ int main(int argc, char* argv[]) {
         install_vencord = true;
         break;
       case 'p':
-        package_url = optarg;
+        if (optarg) package_url = optarg;
         break;
       case 's':
         silent = true;
@@ -71,7 +72,7 @@ int main(int argc, char* argv[]) {
 
   installDiscord();
  
-  if(showVerison) {
+  if(showVersion) {
     std::cout << R"(
 
     
@@ -92,7 +93,7 @@ By Justtobored, version (1.0)
 
   if(install_vencord) {
     std::cout << (silent ? "" : "Installing Vencord...\n");
-    std::system("sh -c `$(curl -sS https://raw.githubusercontent.com/Vendicated/VencordInstaller/main/install.sh)`");
+    std::system("sh -c \"$(curl -sS https://raw.githubusercontent.com/Vendicated/VencordInstaller/main/install.sh)\"");
   }
 
   if(!package_url.empty()) {
