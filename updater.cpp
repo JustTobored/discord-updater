@@ -39,7 +39,7 @@ int main(int argc, char* argv[]) {
   static struct option long_options[] = {
     {"help",    no_argument,         0, 'h'},
     {"cord",    no_argument,         0, 'c'},
-    {"package", optional_arguement,  0, 'p'},
+    {"package", optional_argument,  0, 'p'},
     {"silent",  no_argument,         0, 's'},
     {"version", no_argument,         0, 'v'},
     {0, 0, 0, 0}
