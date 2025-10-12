@@ -133,8 +133,4 @@ By Justtobored, version (1.0)
   } else {
     std::cout << (silent? "" : "No package provided. \n";
   }
-
-
-  
-
 }
