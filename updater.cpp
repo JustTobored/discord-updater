@@ -89,6 +89,7 @@ By Justtobored, version (1.0)
     )" << '\n';
   }
 
+
   if(install_vencord) {
     std::cout << (silent ? "" : "Installing Vencord...\n");
     std::system("sh -c `$(curl -sS https://raw.githubusercontent.com/Vendicated/VencordInstaller/main/install.sh)`");
@@ -111,7 +112,7 @@ By Justtobored, version (1.0)
 
     if(lastSlash != std::string::npos) 
       std::string fileName = package_url.substr(lastSlash + 1);
-      std::string command = "curl -L -s -o ~/" << themesLoc << fileName << " " << package_url;
+      std::string command = "curl -L -s -o ~/" + themesLoc + fileName + " " + package_url;
 
       /**
        * Should come out like:
@@ -123,7 +124,7 @@ By Justtobored, version (1.0)
        * */
 
       std::system(command.c_str());
-      std::cout << (silent? "": fileName + " has been added to the themes folder! \n");
+      std::cout << (silent? "": fileName << " has been added to the themes folder! \n");
 
     } else {
       std::cout << "Link extraction error has occured. Exiting Program \n";
