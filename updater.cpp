@@ -14,7 +14,7 @@ void print_help() {
 
 }
 
-void std::string installDiscord() {
+std::string installDiscord() {
 
   // Old, bad code but it works so...
   std::system("cd ~/Downloads && mkdir DISAUTOUP");
@@ -35,7 +35,7 @@ int main(int argc, char* argv[]) {
 
   // Code below is just looking at the flags, and also setting options
 
-  stataic struct option long_options[] = {
+  static struct option long_options[] = {
     {"help",    no_argument,         0, 'h'}
     {"cord",    no_argument,         0, 'c'}
     {"package", optional,            0, 'p'}
@@ -60,7 +60,7 @@ int main(int argc, char* argv[]) {
       case 's':
         silent = true;
         break;
-      case v:
+      case 'v':
         showVersion = true;
         break;
       default:
@@ -95,7 +95,7 @@ By Justtobored, version (1.0)
     std::system("sh -c `$(curl -sS https://raw.githubusercontent.com/Vendicated/VencordInstaller/main/install.sh)`");
   }
 
-  if(!package_url().empty()) {
+  if(!package_url.empty()) {
     std::string themesLoc = ".config/Vencord/themes";
     std::cout << "Where is your vencord themes folder located? (default = " << themesLoc << "): ";
     std::string input;
@@ -105,7 +105,7 @@ By Justtobored, version (1.0)
       themesLoc = input;
     }
 
-    std::cout << (silent? "" : "Using: " << themesLoc << "\n");
+    if (!silent) std::cout << "Using: " << themesLoc << "\n";
 
     char target = '/';
     size_t lastSlash = package_url.rfind(target);
@@ -134,4 +134,6 @@ By Justtobored, version (1.0)
   } else {
     std::cout << (silent? "" : "No package provided. \n";
   }
+
+  return 0;
 }
