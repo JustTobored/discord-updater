@@ -70,7 +70,25 @@ int main(int argc, char* argv[]) {
   }
 
   installDiscord()
-  
+ 
+  if(showVerison) {
+    std::cout << R"(
+
+    
+
+ ██████████   █████  █████████  █████  █████ ███████████ 
+░░███░░░░███ ░░███  ███░░░░░███░░███  ░░███ ░░███░░░░░███
+ ░███   ░░███ ░███ ░███    ░░░  ░███   ░███  ░███    ░███
+ ░███    ░███ ░███ ░░█████████  ░███   ░███  ░██████████ 
+ ░███    ░███ ░███  ░░░░░░░░███ ░███   ░███  ░███░░░░░░  
+ ░███    ███  ░███  ███    ░███ ░███   ░███  ░███        
+ ██████████   █████░░█████████  ░░████████   █████       
+░░░░░░░░░░   ░░░░░  ░░░░░░░░░    ░░░░░░░░   ░░░░░        
+
+By Justtobored, version (1.0)
+    )" << '\n';
+  }
+
   if(install_vencord) {
     std::cout << (silent ? "" : "Installing Vencord...\n");
     std::system("sh -c `$(curl -sS https://raw.githubusercontent.com/Vendicated/VencordInstaller/main/install.sh)`");
