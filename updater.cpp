@@ -3,6 +3,12 @@
 #include <string>
 #include <cstdlib>
 
+bool install_vencord = false;
+bool silent = false;
+bool showVersion = false;
+std::string package_url;
+std::string themesLoc = ".config/Vencord/themes/";
+
 void print_help() {
   std::cout << "Usage: disupdate [options]\n"
             << "\nOptions:\n"
@@ -28,21 +34,15 @@ void installDiscord() {
 
 int main(int argc, char* argv[]) {
 
-  bool install_vencord = false;
-  bool silent = false;
-  bool showVersion = false;
-  std::string package_url;
-
-
   // Code below is just looking at the flags, and also setting options
 
   static struct option long_options[] = {
-    {"help",    no_argument,         0, 'h'},
-    {"cord",    no_argument,         0, 'c'},
-    {"package", optional_argument,  0, 'p'},
-    {"silent",  no_argument,         0, 's'},
-    {"version", no_argument,         0, 'v'},
-    {0, 0, 0, 0}
+    {"help",    no_argument,         nullptr, 'h'},
+    {"cord",    no_argument,         nullptr, 'c'},
+    {"package", optional_argument,   nullptr, 'p'},
+    {"silent",  no_argument,         nullptr, 's'},
+    {"version", no_argument,         nullptr, 'v'},
+    {nullptr, 0, nullptr, 0}
   };
 
   int opt;
@@ -67,8 +67,8 @@ int main(int argc, char* argv[]) {
       default:
         print_help();
         return 1;
-    }
-  }
+    };
+  };
 
   installDiscord();
  
@@ -97,23 +97,23 @@ By Justtobored, version (1.0)
   }
 
   if(!package_url.empty()) {
-    std::string themesLoc = ".config/Vencord/themes";
-    std::cout << "Where is your vencord themes folder located? (default = " << themesLoc << "): ";
+    std::cout << "Where is your vencord themes folder located? (default = ~/" << themesLoc << "): ";
     std::string input;
-    std::getline(std::cin, input);
+    std::getline(std::cin >> std::ws, input); // eat leftover whitespace/newline(recommended by gpt)
 
     if(!input.empty()){
       themesLoc = input;
+      if (themesLoc.back() != '/') themesLoc << "\n";
     }
 
-    if (!silent) std::cout << "Using: " << themesLoc << "\n";
+    if (!silent) std::cout << "Using: ~/" << themesLoc << "\n";
 
     char target = '/';
     size_t lastSlash = package_url.rfind(target);
 
     if(lastSlash != std::string::npos) 
       std::string fileName = package_url.substr(lastSlash + 1);
-      std::string command = "curl -L -s -o ~/" + themesLoc + fileName + " " + package_url;
+      std::string command = std::string("curl -L -s -o ~/") + themesLoc + fileName + " " + package_url;
 
       /**
        * Should come out like:
