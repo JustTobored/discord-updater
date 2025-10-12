@@ -14,7 +14,7 @@ void print_help() {
 
 }
 
-std::string installDiscord() {
+void installDiscord() {
 
   // Old, bad code but it works so...
   std::system("cd ~/Downloads && mkdir DISAUTOUP");
@@ -36,11 +36,11 @@ int main(int argc, char* argv[]) {
   // Code below is just looking at the flags, and also setting options
 
   static struct option long_options[] = {
-    {"help",    no_argument,         0, 'h'}
-    {"cord",    no_argument,         0, 'c'}
-    {"package", optional,            0, 'p'}
-    {"silent",  no_argument,         0, 's'}
-    {"version", no_argument,         0, 'v'}
+    {"help",    no_argument,         0, 'h'},
+    {"cord",    no_argument,         0, 'c'},
+    {"package", optional,            0, 'p'},
+    {"silent",  no_argument,         0, 's'},
+    {"version", no_argument,         0, 'v'},
     {0, 0, 0, 0}
   };
 
@@ -69,7 +69,7 @@ int main(int argc, char* argv[]) {
     }
   }
 
-  installDiscord()
+  installDiscord();
  
   if(showVerison) {
     std::cout << R"(
