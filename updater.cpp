@@ -1,5 +1,6 @@
 #include <iostream>
 #include <getopt.h>
+#include <string>
 
 void print_help() {
   std::cout << "Usage: disupdate [options]\n"
@@ -14,6 +15,8 @@ void print_help() {
 }
 
 void std::string installDiscord() {
+
+  // Old, bad code but it works so...
   std::system("cd ~/Downloads && mkdir DISAUTOUP");
   std::system("cd ~/Downloads/DISAUTOUP && rm -rf ./*");
 
@@ -28,6 +31,9 @@ int main(int argc, char* argv[]) {
   bool silent = false;
   bool showVersion = false;
   std::string package_url;
+
+
+  // Code below is just looking at the flags, and also setting options
 
   stataic struct option long_options[] = {
     {"help",    no_argument,         0, 'h'}
@@ -69,6 +75,48 @@ int main(int argc, char* argv[]) {
     std::cout << (silent ? "" : "Installing Vencord...\n");
     std::system("sh -c `$(curl -sS https://raw.githubusercontent.com/Vendicated/VencordInstaller/main/install.sh)`");
   }
+
+  if(!package_url().empty()) {
+    std::string themesLoc = ".config/Vencord/themes";
+    std::cout << "Where is your vencord themes folder located? (default = " << themesLoc << "): ";
+    std::string input;
+    std::getline(std::cin, input);
+
+    if(!input.empty()){
+      themesLoc = input;
+    }
+
+    std::cout << (silent? "" : "Using: " << themesLoc << "\n");
+
+    char target = '/';
+    size_t lastSlash = package_url.rfind(target);
+
+    if(lastSlash != std::string::npos) 
+      std::string fileName = package_url.substr(lastSlash + 1);
+      std::string command = "curl -L -s -o ~/" << themesLoc << fileName << " " << package_url;
+
+      /**
+       * Should come out like:
+       * curl -L -s -o ~/.config/Vencord/themes/example.theme.css https://bad_example_link.com/example.theme.css
+       * 
+       * What this does:
+       * Extracts the last part of the link; starting with the last '/' then moving onwards
+       * No verification just yolo 😭
+       * */
+
+      std::system(command.c_str());
+      std::cout << (silent? "": fileName + " has been added to the themes folder! \n");
+
+    } else {
+      std::cout << "Link extraction error has occured. Exiting Program \n";
+      return 1;
+    }
+
+  } else {
+    std::cout << (silent? "" : "No package provided. \n";
+  }
+
+
   
 
 }
