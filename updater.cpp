@@ -92,7 +92,7 @@ By Justtobored, version (1.0)
 
 
   if(install_vencord) {
-    std::cout << (silent ? "" : "Installing Vencord...\n");
+    if (!silent) std::cout << "Installing Vencord...\n";
     std::system("sh -c \"$(curl -sS https://raw.githubusercontent.com/Vendicated/VencordInstaller/main/install.sh)\"");
   }
 
@@ -103,7 +103,7 @@ By Justtobored, version (1.0)
 
     if(!input.empty()){
       themesLoc = input;
-      if (themesLoc.back() != '/') themesLoc << "\n";
+      if (themesLoc.back() != '/') themesLoc += "\n";
     }
 
     if (!silent) std::cout << "Using: ~/" << themesLoc << "\n";
@@ -111,7 +111,7 @@ By Justtobored, version (1.0)
     char target = '/';
     size_t lastSlash = package_url.rfind(target);
 
-    if(lastSlash != std::string::npos) 
+    if(lastSlash != std::string::npos){ 
       std::string fileName = package_url.substr(lastSlash + 1);
       std::string command = std::string("curl -L -s -o ~/") + themesLoc + fileName + " " + package_url;
 
@@ -125,7 +125,7 @@ By Justtobored, version (1.0)
        * */
 
       std::system(command.c_str());
-      std::cout << (silent? "": fileName << " has been added to the themes folder! \n");
+      if(!silent) std::cout << fileName << " has been added to the themes folder! \n";
 
     } else {
       std::cout << "Link extraction error has occured. Exiting Program \n";
@@ -133,7 +133,7 @@ By Justtobored, version (1.0)
     }
 
   } else {
-    std::cout << (silent? "" : "No package provided. \n";
+    if (!silent) std::cout << "No package provided. \n";
   }
 
   return 0;
